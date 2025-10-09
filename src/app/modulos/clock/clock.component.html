@@ -1,9 +1,9 @@
 <div class="clock-container">
   <div class="timer">
-    <span>25:00</span>
+    <span *ngIf="timer$ | async as timerValue">{{ timerValue | formatTime }}</span>
   </div>
   <div class="controls">
-    <button>Start</button>
+    <button (click)="start()">Start</button>
     <button>Pause</button>
     <button>Reset</button>
   </div>

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainPageModule } from './modulos/main-page/main-page.module';
 import { NavbarModule } from './modulos/navbar/navbar.module';
 import { ClockModule } from './modulos/clock/clock.module';
 import { SessionLogModule } from './modulos/session-log/session-log.module';
@@ -15,7 +14,6 @@ import { SessionLogModule } from './modulos/session-log/session-log.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MainPageModule,
     NavbarModule,
     ClockModule,
     SessionLogModule

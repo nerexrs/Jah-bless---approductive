@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClockComponent } from './clock.component';
+import { FormatTimePipe } from './format-time.pipe';
 
 
 
@@ -9,7 +10,8 @@ import { ClockComponent } from './clock.component';
     ClockComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormatTimePipe
   ],
   exports: [
     ClockComponent
