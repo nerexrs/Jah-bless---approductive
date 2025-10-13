@@ -20,4 +20,8 @@ export class ClockComponent implements OnInit {
   start() {
     this.clockService.start();
   }
+
+  pause() {
+    this.clockService.pause();
+  }
 }

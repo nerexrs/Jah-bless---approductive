@@ -9,6 +9,8 @@ export class ClockService {
   private initialTime = 25 * 60; // 25 minutes in seconds
   private timer$: BehaviorSubject<number> = new BehaviorSubject(this.initialTime);
   private timerSubscription: Subscription | undefined;
+  private isPaused = false;
+  private currentTime = this.initialTime;
 
   constructor() { }
 
@@ -17,12 +19,23 @@ export class ClockService {
       this.timerSubscription.unsubscribe();
     }
 
-    this.timer$.next(this.initialTime);
+    const startTime = this.isPaused ? this.currentTime : this.initialTime;
+    this.isPaused = false;
 
     this.timerSubscription = timer(0, 1000).pipe(
-      take(this.initialTime + 1),
-      map(i => this.initialTime - i)
-    ).subscribe(val => this.timer$.next(val));
+      take(startTime + 1),
+      map(i => startTime - i)
+    ).subscribe(val => {
+      this.currentTime = val;
+      this.timer$.next(val);
+    });
+  }
+
+  pause() {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+      this.isPaused = true;
+    }
   }
 
   getTimer(): Observable<number> {
