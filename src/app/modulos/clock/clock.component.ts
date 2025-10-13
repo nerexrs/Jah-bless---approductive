@@ -24,4 +24,8 @@ export class ClockComponent implements OnInit {
   pause() {
     this.clockService.pause();
   }
+
+  reset() {
+    this.clockService.reset();
+  }
 }

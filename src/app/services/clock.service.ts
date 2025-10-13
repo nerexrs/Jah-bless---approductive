@@ -38,6 +38,15 @@ export class ClockService {
     }
   }
 
+  reset() {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+    this.isPaused = false;
+    this.currentTime = this.initialTime;
+    this.timer$.next(this.initialTime);
+  }
+
   getTimer(): Observable<number> {
     return this.timer$.asObservable();
   }
