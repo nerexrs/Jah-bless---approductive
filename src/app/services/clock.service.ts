@@ -13,7 +13,7 @@ export class ClockService {
   private isPaused = false;
   private currentTime = this.initialTime;
   private pomodoroCounter = 0;
-  private completedPomodoros: { count: number, time: string }[] = [];
+  private completedPomodoros: { count: number, time: string, duration: number }[] = [];
   private isRunning$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private autoReset$: Subject<void> = new Subject<void>();
 
@@ -38,7 +38,7 @@ export class ClockService {
           this.pomodoroCounter++;
           const now = new Date();
           const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          this.completedPomodoros.push({ count: this.pomodoroCounter, time });
+          this.completedPomodoros.push({ count: this.pomodoroCounter, time, duration: this.initialTime });
           this.sessionLogService.updatePomodoros(this.completedPomodoros);
           this.reset();
           this.autoReset$.next();
@@ -59,18 +59,13 @@ export class ClockService {
   }
 
   reset() {
-    console.log('[DEBUG] ClockService.reset() called');
-    console.log('[DEBUG] Before reset - currentTime:', this.currentTime, 'isPaused:', this.isPaused, 'isRunning:', this.isRunning$.value);
     if (this.timerSubscription) {
-      console.log('[DEBUG] Unsubscribing timer subscription');
       this.timerSubscription.unsubscribe();
     }
     this.isPaused = false;
     this.currentTime = this.initialTime;
-    console.log('[DEBUG] Resetting timer to initialTime:', this.initialTime);
     this.timer$.next(this.initialTime);
     this.isRunning$.next(false);
-    console.log('[DEBUG] After reset - currentTime:', this.currentTime, 'isPaused:', this.isPaused, 'isRunning:', this.isRunning$.value);
   }
 
   getTimer(): Observable<number> {
@@ -83,5 +78,18 @@ export class ClockService {
 
   getAutoReset(): Observable<void> {
     return this.autoReset$.asObservable();
+  }
+
+  skip() {
+    if (this.timerSubscription && !this.timerSubscription.closed) {
+      this.timerSubscription.unsubscribe();
+      this.pomodoroCounter++;
+      const now = new Date();
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const elapsedTime = this.initialTime - this.currentTime;
+      this.completedPomodoros.push({ count: this.pomodoroCounter, time, duration: elapsedTime });
+      this.sessionLogService.updatePomodoros(this.completedPomodoros);
+      this.reset();
+    }
   }
 }

@@ -1,6 +1,19 @@
-<h2>Historial de Pomodoros</h2>
-<ul>
-	<li *ngFor="let p of pomodoros$ | async">
-		Pomodoro #{{ p.count }} completado a las {{ p.time }}
-	</li>
-</ul>
+<div class="session-log-container">
+  <h3>Historial de Pomodoros</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Número de Pomodoro</th>
+        <th>Hora de Finalización</th>
+        <th>Duración</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of pomodoros$ | async" [ngClass]="{'pomodoro-row': true}">
+        <td>{{ p.count }}</td>
+        <td>{{ p.time }}</td>
+        <td>{{ p.duration | formatTime }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

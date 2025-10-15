@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SessionLogComponent } from './session-log.component';
+import { FormatTimePipe } from '../clock/format-time.pipe';
 
 
 
@@ -9,7 +10,8 @@ import { SessionLogComponent } from './session-log.component';
     SessionLogComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormatTimePipe
   ],
   exports: [
     SessionLogComponent

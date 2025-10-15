@@ -26,16 +26,13 @@ export class ClockComponent implements OnInit, OnDestroy {
       this.isRunningValue = isRunning;
     });
     this.timer$.subscribe(timerValue => {
-      console.log('[DEBUG] Timer value changed:', timerValue);
+      // Timer value changed
     });
     this.autoResetSubscription = this.clockService.getAutoReset().subscribe(() => {
-      console.log('[DEBUG] Auto reset triggered');
       const button = this.el.nativeElement.querySelector('.play-pause-btn');
       if (button) {
-        console.log('[DEBUG] Adding auto-reset class to play-pause button');
         this.renderer.addClass(button, 'auto-reset');
         setTimeout(() => {
-          console.log('[DEBUG] Removing auto-reset class from play-pause button');
           this.renderer.removeClass(button, 'auto-reset');
         }, 500);
       }
@@ -68,10 +65,8 @@ export class ClockComponent implements OnInit, OnDestroy {
   }
 
   reset() {
-    console.log('[DEBUG] Reset button clicked. Current timer value:', this.timer$);
     const svg = this.el.nativeElement.querySelector('.reset-btn svg');
     if (svg) {
-      console.log('[DEBUG] SVG element found. Current classes:', svg.className);
       // Toggle the rotated class
       if (this.isRotated) {
         this.renderer.removeClass(svg, 'rotated');
@@ -79,18 +74,33 @@ export class ClockComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.renderer.removeClass(svg, 'second-rotate');
         }, 500);
-        console.log('[DEBUG] Removed rotated class and added second-rotate');
       } else {
         this.renderer.addClass(svg, 'rotated');
-        console.log('[DEBUG] Added rotated class');
       }
       this.isRotated = !this.isRotated;
-      console.log('[DEBUG] After toggle, classes:', svg.className);
-    } else {
-      console.log('[DEBUG] SVG element not found');
     }
-    console.log('[DEBUG] Calling clockService.reset()');
     this.clockService.reset();
-    console.log('[DEBUG] Reset completed');
+
+    // Trigger the same animation as auto-reset on the play-pause button
+    const button = this.el.nativeElement.querySelector('.play-pause-btn');
+    if (button) {
+      this.renderer.addClass(button, 'auto-reset');
+      setTimeout(() => {
+        this.renderer.removeClass(button, 'auto-reset');
+      }, 500);
+    }
+  }
+
+  skip() {
+    this.clockService.skip();
+
+    // Trigger the same animation as auto-reset on the play-pause button
+    const button = this.el.nativeElement.querySelector('.play-pause-btn');
+    if (button) {
+      this.renderer.addClass(button, 'auto-reset');
+      setTimeout(() => {
+        this.renderer.removeClass(button, 'auto-reset');
+      }, 500);
+    }
   }
 }
