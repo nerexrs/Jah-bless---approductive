@@ -1,0 +1,27 @@
+<div class="modal-overlay" *ngIf="isVisible">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Formulario Modal</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="inputField">Campo de entrada:</label>
+          <input
+            type="text"
+            id="inputField"
+            [(ngModel)]="inputValue"
+            name="inputField"
+            placeholder="Ingresa algo..."
+            required
+          />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="submit-btn">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

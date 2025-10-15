@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarModule } from './modulos/navbar/navbar.module';
 import { ClockModule } from './modulos/clock/clock.module';
 import { SessionLogModule } from './modulos/session-log/session-log.module';
+import { FloatingButtonModule } from './floating-button/floating-button.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SessionLogModule } from './modulos/session-log/session-log.module';
     AppRoutingModule,
     NavbarModule,
     ClockModule,
-    SessionLogModule
+    SessionLogModule,
+    FloatingButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
