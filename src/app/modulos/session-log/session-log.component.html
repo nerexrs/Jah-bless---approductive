@@ -1,1 +1,6 @@
-<h1>{{ pomodoros$ | async | json }}</h1>
+<h2>Historial de Pomodoros</h2>
+<ul>
+	<li *ngFor="let p of pomodoros$ | async">
+		Pomodoro #{{ p.count }} completado a las {{ p.time }}
+	</li>
+</ul>

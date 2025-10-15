@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrl: './session-log.component.scss'
 })
 export class SessionLogComponent implements OnInit {
-  pomodoros$!: Observable<number[]>;
+  pomodoros$!: Observable<{ count: number, time: string }[]>;
 
   constructor(private sessionLogService: SessionLogService) { }
 

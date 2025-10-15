@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SessionLogService {
-  private pomodorosSubject = new BehaviorSubject<number[]>([]);
+  private pomodorosSubject = new BehaviorSubject<{ count: number, time: string }[]>([]);
   pomodoros$ = this.pomodorosSubject.asObservable();
 
-  updatePomodoros(pomodoros: number[]) {
+  updatePomodoros(pomodoros: { count: number, time: string }[]) {
     this.pomodorosSubject.next(pomodoros);
   }
 }

@@ -3,8 +3,17 @@
     <span *ngIf="timer$ | async as timerValue">{{ timerValue | formatTime }}</span>
   </div>
   <div class="controls">
-    <button (click)="start()">Start</button>
-    <button (click)="pause()">Pause</button>
-    <button (click)="reset()">Reset</button>
+    <button class="play-pause-btn" (click)="togglePlayPause()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path *ngIf="!(isRunning$ | async)" d="M8 5v14l11-7z"></path>
+        <path *ngIf="isRunning$ | async" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+      </svg>
+    </button>
+    <button class="reset-btn" (click)="reset()">
+      <svg width="72" height="36" viewBox="0 0 70 70">
+        <path d="M 9 35 A 26 26 0 1 1 61 35" fill="none" stroke="currentColor" stroke-width="7.2" stroke-linecap="round"/>
+        <path d="M 61 50 L 50.5 36.5 L 71.5 36.5 Z" fill="currentColor"/>
+      </svg>
+    </button>
   </div>
 </div>
