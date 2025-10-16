@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mi-app-con-modulos": {
+    "teyren": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/mi-app-con-modulos",
+            "outputPath": "dist/teyren",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "mi-app-con-modulos:build:production"
+              "buildTarget": "teyren:build:production"
             },
             "development": {
-              "buildTarget": "mi-app-con-modulos:build:development"
+              "buildTarget": "teyren:build:development"
             }
           },
           "defaultConfiguration": "development"
