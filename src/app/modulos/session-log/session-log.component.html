@@ -1,19 +1,22 @@
 <div class="session-log-container">
-  <h3>Historial de Pomodoros</h3>
+  <h3>Historial</h3>
   <table>
     <thead>
       <tr>
-        <th>Número de Pomodoro</th>
-        <th>Hora de Finalización</th>
+        <th>Tarea</th>
+        <th>Inicio</th>
+        <th>Fin</th>
         <th>Duración</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let p of pomodoros$ | async" [ngClass]="{'pomodoro-row': true}">
-        <td>{{ p.count }}</td>
-        <td>{{ p.time }}</td>
+      <tr *ngFor="let p of pomodoros$ | async" [ngClass]="{'pomodoro-row': true, 'clickable-row': true}" (click)="openModal(p)">
+        <td>{{ p.task }}</td>
+        <td>{{ p.startTime }}</td>
+        <td>{{ p.endTime }}</td>
         <td>{{ p.duration | formatTime }}</td>
       </tr>
     </tbody>
   </table>
 </div>
+<app-pomodoro-modal [pomodoro]="selectedPomodoro" [isVisible]="modalVisible" (close)="closeModal()"></app-pomodoro-modal>

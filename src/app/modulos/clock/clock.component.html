@@ -1,4 +1,7 @@
 <div class="clock-container">
+  <div class="session-title" *ngIf="currentSessionTitle">
+    <h3>{{ currentSessionTitle }}</h3>
+  </div>
   <div class="timer">
     <span *ngIf="timer$ | async as timerValue">{{ timerValue | formatTime }}</span>
   </div>

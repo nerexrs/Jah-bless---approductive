@@ -16,8 +16,19 @@ export class ClockComponent implements OnInit, OnDestroy {
   private isRunningValue: boolean = false;
   private autoResetSubscription: Subscription | undefined;
   private isRotated: boolean = false;
+  currentSessionTitle: string = '';
 
-  constructor(private clockService: ClockService, private renderer: Renderer2, private el: ElementRef) { }
+  constructor(private clockService: ClockService, private renderer: Renderer2, private el: ElementRef) {
+    // Suscribirse a cambios en la sesión actual
+    this.clockService.getCurrentSessionObservable().subscribe((session: {title: string, description: string} | null) => {
+      this.currentSessionTitle = session ? session.title : '';
+    });
+
+    // Limpiar el título cuando termine el pomodoro
+    this.clockService.getAutoReset().subscribe(() => {
+      this.currentSessionTitle = '';
+    });
+  }
 
   ngOnInit() {
     this.timer$ = this.clockService.getTimer();

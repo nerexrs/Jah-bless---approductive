@@ -8,9 +8,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ModalFormComponent {
   @Output() close = new EventEmitter<void>();
+  @Output() sessionStarted = new EventEmitter<{title: string, description: string}>();
 
   isVisible = false;
-  inputValue = '';
+  title = '';
+  description = '';
 
   openModal() {
     this.isVisible = true;
@@ -22,9 +24,15 @@ export class ModalFormComponent {
   }
 
   onSubmit() {
-    if (this.inputValue.trim()) {
-      alert(`Valor enviado: ${this.inputValue}`);
+    if (this.title.trim()) {
+      this.sessionStarted.emit({
+        title: this.title.trim(),
+        description: this.description.trim()
+      });
       this.closeModal();
+      // Reset form
+      this.title = '';
+      this.description = '';
     }
   }
 }

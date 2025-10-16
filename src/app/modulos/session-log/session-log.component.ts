@@ -9,11 +9,23 @@ import { Observable } from 'rxjs';
   styleUrl: './session-log.component.scss'
 })
 export class SessionLogComponent implements OnInit {
-  pomodoros$!: Observable<{ count: number, time: string, duration: number }[]>;
+  pomodoros$!: Observable<{ task: string, startTime: string, endTime: string, duration: number, description: string }[]>;
+  selectedPomodoro: { task: string, startTime: string, endTime: string, duration: number, description: string } | null = null;
+  modalVisible = false;
 
   constructor(private sessionLogService: SessionLogService) { }
 
   ngOnInit() {
     this.pomodoros$ = this.sessionLogService.pomodoros$;
+  }
+
+  openModal(pomodoro: { task: string, startTime: string, endTime: string, duration: number, description: string }) {
+    this.selectedPomodoro = pomodoro;
+    this.modalVisible = true;
+  }
+
+  closeModal() {
+    this.modalVisible = false;
+    this.selectedPomodoro = null;
   }
 }

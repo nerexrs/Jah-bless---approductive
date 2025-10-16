@@ -4,9 +4,22 @@
   align-items: center;
   margin: 2rem 0;
 
+  .session-title {
+    margin-bottom: 20px;
+    text-align: center;
+
+    h3 {
+      margin: 0;
+      color: white;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+  }
+
   .timer {
     font-size: 6rem;
     font-weight: bold;
+    color: white;
   }
 
   .controls {
@@ -39,7 +52,7 @@
       width: 56px;
       height: 56px;
       padding: 0;
-      background: #4CAF50;
+      background: #800080;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -54,12 +67,12 @@
         box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 
         .icon-play {
-          background: #e8f5e8;
+          background: #1E6173;
           transform: scale(1.1);
         }
 
         .icon-pause {
-          background: #e8f5e8;
+          background: #1E6173;
           transform: scale(1.1);
         }
       }
@@ -73,12 +86,12 @@
         box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 
         .icon-play {
-          background: #e8f5e8;
+          background: #1E6173;
           transform: scale(1.1);
         }
 
         .icon-pause {
-          background: #e8f5e8;
+          background: #1E6173;
           transform: scale(1.1);
         }
       }
@@ -89,7 +102,7 @@
       width: 56px;
       height: 56px;
       padding: 0;
-      background: #4CAF50;
+      background: #800080;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -103,7 +116,7 @@
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-        background: #45a049;
+        background: #993299;
       }
 
       &:active {
@@ -115,6 +128,7 @@
         height: 24px;
         pointer-events: none;
         transition: transform 0.5s ease-in-out;
+        fill: #1E6173;
 
         &.resetting {
           animation: rotate-reset 0.5s ease-in-out;
@@ -135,7 +149,7 @@
       width: 56px;
       height: 56px;
       padding: 0;
-      background: #4CAF50;
+      background: #800080;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -149,7 +163,7 @@
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-        background: #45a049;
+        background: #993299;
       }
 
       &:active {
@@ -160,6 +174,7 @@
         width: 24px;
         height: 24px;
         pointer-events: none;
+        fill: #1E6173;
       }
     }
 

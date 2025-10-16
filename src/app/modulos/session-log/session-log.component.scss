@@ -16,12 +16,13 @@
 
     th, td {
       padding: 0.75rem;
-      text-align: left;
+      text-align: center;
       border-bottom: 1px solid #eee;
     }
 
     th {
-      background-color: #f8f9fa;
+      background-color: #800080; /* Morado oscuro */
+      color: #1E6173; /* Azul específico */
       font-weight: bold;
     }
 
@@ -30,12 +31,16 @@
     }
 
     .pomodoro-row {
-      background-color: #1e3a8a; /* Azul profundo */
-      color: white;
+      background-color: #1E6173; /* Azul específico */
+      color: #800080; /* Morado oscuro */
     }
 
     .pomodoro-row:hover {
-      background-color: #1e40af; /* Azul más claro en hover */
+      background-color: #2a6b7d; /* Azul más claro en hover */
+    }
+
+    .clickable-row {
+      cursor: pointer;
     }
   }
 }

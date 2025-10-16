@@ -1,11 +1,11 @@
 .floating-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  left: 20px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #007bff;
+  background-color: #6c757d;
   color: white;
   border: none;
   font-size: 24px;
@@ -18,7 +18,7 @@
 }
 
 .floating-button:hover {
-  background-color: #28a745;
+  background-color: #5a6268;
   transform: scale(1.1);
 }
 
@@ -28,9 +28,4 @@
 
 .floating-button:hover .icon {
   transform: rotate(45deg);
-}
-
-.floating-button:hover .icon::before {
-  content: '×';
-  position: absolute;
 }

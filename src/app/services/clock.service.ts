@@ -7,15 +7,17 @@ import { SessionLogService } from './session-log.service';
   providedIn: 'root'
 })
 export class ClockService {
-  private initialTime = 0.1 * 60; // 25 minutes in seconds
+  private initialTime = 25 * 60; // 25 minutes in seconds
   private timer$: BehaviorSubject<number> = new BehaviorSubject(this.initialTime);
   private timerSubscription: Subscription | undefined;
   private isPaused = false;
   private currentTime = this.initialTime;
   private pomodoroCounter = 0;
-  private completedPomodoros: { count: number, time: string, duration: number }[] = [];
+  private completedPomodoros: { task: string, startTime: string, endTime: string, duration: number, description: string }[] = [];
   private isRunning$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private autoReset$: Subject<void> = new Subject<void>();
+  private currentSession: {title: string, description: string} | null = null;
+  private currentSession$: BehaviorSubject<{title: string, description: string} | null> = new BehaviorSubject<{title: string, description: string} | null>(null);
 
   constructor(private sessionLogService: SessionLogService) { }
 
@@ -37,8 +39,12 @@ export class ClockService {
         if (val === 0) {
           this.pomodoroCounter++;
           const now = new Date();
-          const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          this.completedPomodoros.push({ count: this.pomodoroCounter, time, duration: this.initialTime });
+          const endTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          const startTime = new Date(now.getTime() - this.initialTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          const currentSession = this.getCurrentSession();
+          const taskName = currentSession && currentSession.title ? currentSession.title : `Tarea ${this.pomodoroCounter}`;
+          const description = currentSession && currentSession.description ? currentSession.description : '';
+          this.completedPomodoros.push({ task: taskName, startTime, endTime, duration: this.initialTime, description });
           this.sessionLogService.updatePomodoros(this.completedPomodoros);
           this.reset();
           this.autoReset$.next();
@@ -85,11 +91,39 @@ export class ClockService {
       this.timerSubscription.unsubscribe();
       this.pomodoroCounter++;
       const now = new Date();
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const endTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
       const elapsedTime = this.initialTime - this.currentTime;
-      this.completedPomodoros.push({ count: this.pomodoroCounter, time, duration: elapsedTime });
+      const startTime = new Date(now.getTime() - elapsedTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const currentSession = this.getCurrentSession();
+      const taskName = currentSession && currentSession.title ? currentSession.title : `Tarea ${this.pomodoroCounter}`;
+      const description = currentSession && currentSession.description ? currentSession.description : '';
+      this.completedPomodoros.push({ task: taskName, startTime, endTime, duration: elapsedTime, description });
       this.sessionLogService.updatePomodoros(this.completedPomodoros);
       this.reset();
+      this.autoReset$.next();
     }
+  }
+
+  getInitialTime(): number {
+    return this.initialTime;
+  }
+
+  setInitialTime(seconds: number) {
+    this.initialTime = seconds;
+    // Reset the timer to the new initial time
+    this.reset();
+  }
+
+  setCurrentSession(session: {title: string, description: string} | null) {
+    this.currentSession = session;
+    this.currentSession$.next(session);
+  }
+
+  getCurrentSession(): {title: string, description: string} | null {
+    return this.currentSession;
+  }
+
+  getCurrentSessionObservable(): Observable<{title: string, description: string} | null> {
+    return this.currentSession$.asObservable();
   }
 }
