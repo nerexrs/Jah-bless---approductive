@@ -226,3 +226,19 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .clock-container {
+    margin-top: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clock-container {
+    margin-top: 2.7rem;
+  }
+
+  .timer {
+    font-size: 4rem;
+  }
+}

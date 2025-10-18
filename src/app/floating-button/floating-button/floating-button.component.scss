@@ -34,3 +34,9 @@
   content: '×';
   position: absolute;
 }
+
+@media (max-width: 480px) {
+  .floating-button {
+    bottom: 80px;
+  }
+}

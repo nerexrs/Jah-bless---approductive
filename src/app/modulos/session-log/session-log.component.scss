@@ -4,6 +4,7 @@
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
+  box-sizing: border-box;
 
   h3 {
     text-align: center;
@@ -42,5 +43,15 @@
     .clickable-row {
       cursor: pointer;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .session-log-container {
+    width: 95%;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
   }
 }
